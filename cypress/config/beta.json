@@ -1,0 +1,7 @@
+{
+    "baseUrl": "http://cclite.beta.qup.vn/",
+    "env": {
+        "userName": "pepsi",
+        "password": "Qup@12345"
+    }
+}
