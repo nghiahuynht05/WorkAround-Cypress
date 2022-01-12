@@ -28,4 +28,11 @@ describe('Verify UI of setting module', () => {
       controller.getTextTypeInput(ELEMENT.INFO_FLEET_UNIT, `km`);
     });
   })
+
+  describe('Verify Permission setting', () => {
+    it('Open Permission pages', () => {
+      controller.clickBtn(ELEMENT.PERMISSION);
+      cy.url().should('eq', `${Cypress.config('baseUrl')}` + 'settings/Permission');
+    });
+  })
 })

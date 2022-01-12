@@ -7,7 +7,7 @@ Example: PASSWORD, USERNAME
 
 ## Run using config file, need to `--config-file` tag
 
-`npm  run cyprees --config-file [cypress/config/*.js]`
+`npm  run cyprees --config-file [cypress/config/*.json]`
 
 
 ## Run using default config file
@@ -18,7 +18,7 @@ Cypress be using `cypress.json`
 
 
 # Run node_modules
-`./node_modules/.bin/cypress open --config-file [cypress/config/*.js]`
+`./node_modules/.bin/cypress open --config-file [cypress/config/*.json]`
 
 # Take note
 
