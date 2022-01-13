@@ -1,7 +1,7 @@
 {
-    "baseUrl": "http://newcc.local.qup.vn/",
+    "baseUrl": "http://newcc.local.qup.vn",
     "env": {
-        "userName": "pepsi",
+        "userName": "cypress",
         "password": "Qup@12345"
     }
 }

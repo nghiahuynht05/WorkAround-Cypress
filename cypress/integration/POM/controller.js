@@ -1,15 +1,23 @@
 
 class Controller {
     input(element, value) {
-        cy.xpath(element).type(value);
+        return cy.xpath(element).type(value);
     }
 
     clickBtn(element) {
-        cy.xpath(element).click();
+        return cy.xpath(element).click();
     }
 
-    getTextTypeInput(element, expected) {
+    getTextHaveValue(element, expected) {
         return cy.get(element).should('have.value', expected);
+    }
+
+    getTextHaveText(element, expected) {
+        return cy.xpath(element).should('have.text', expected);
+    }
+
+    countHaveLength(element, expected) {
+        return cy.xpath(element).should('have.length', expected);
     }
 }
 
