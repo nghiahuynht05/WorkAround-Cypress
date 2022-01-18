@@ -3,5 +3,6 @@
     "env": {
         "userName": "pepsi-operator-01",
         "password": "Qup@12345"
-    }
+    },
+    "chromeWebSecurity": false
 }

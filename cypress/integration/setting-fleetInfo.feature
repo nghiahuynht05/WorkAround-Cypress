@@ -4,13 +4,7 @@ Feature: Verify UI of Setting/ Fleet info module
     Given Login user fleet to CC
 
   Scenario: abcd
-    Given Open Fleet info pages
-    When Get fleet info
-
-  Scenario: abcd
-    Given Open Fleet info pages
-    When Get fleet info
-
-  Scenario: abcd
-    Given Open Fleet info pages
-    When Get fleet info
+    Given Open "Fleet info" pages
+    Then Get fleet info matching with
+      | name | phonenume | email | country | timeZone | address | website | currency | unit |
+      |1         | 1          |       |         |          |         |         |          |      |
