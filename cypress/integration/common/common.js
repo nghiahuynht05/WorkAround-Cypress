@@ -73,7 +73,7 @@ Given(/^Open "([^"]*)" pages$/, function (setting) {
         if (interception.response.statusCode == 200) {
             return true
         }
-    }).should('equal', false)
+    }).should('equal', true)
 });
 
 Given(/^Get fleet info matching with$/, function (table) {
