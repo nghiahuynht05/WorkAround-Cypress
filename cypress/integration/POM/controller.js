@@ -39,8 +39,8 @@ class Controller {
         function getHeader() {
             cy.xpath(element)
                 .within((jQuery) => {
-                    var i = 0;
-                    for (i == 0; i < jQuery.length; i++) {
+
+                    for (var i = 0; i < jQuery.length; i++) {
                         Object.assign(headerRows, {
                             [Cypress.$(jQuery[i]).text()]: Cypress.$(jQuery[i]).text()
                         });
@@ -66,9 +66,9 @@ class Controller {
                                 }
                             });
                         });
-                    return rowsInfo
-                })
-            return [headerRows, rowsInfo]
+                });
+            var result = [headerRows, rowsInfo]
+            return result
         }
         return Promise.all([getHeader()]).then((value) => {
             return value[0]
@@ -84,24 +84,25 @@ class Controller {
                 })
             })
         } else {
-            return _.isMatchWith(data, expect, self.matchFn);
+            return this.matchFn(data, expect);
         }
     }
 
     matchFn(obj, src) {
+        var self = this;
         if (!_.isObject(obj)) {
             return obj === src
         }
         if (_.isArray(src) && _.isArray(obj)) {
             return src.every(function (item) {
                 return obj.some(function (datum) {
-                    return matchFn(datum, item);
+                    return this.matchFn(datum, item);
                 })
             })
         } else {
             if (_.matches(src)(obj)) return true;
             return Object.keys(src).every(function (key) {
-                return matchFn(obj[key], src[key]);
+                return self.matchFn(obj[key], src[key]);
             })
         }
         return false;

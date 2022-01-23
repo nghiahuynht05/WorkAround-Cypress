@@ -7,4 +7,4 @@ Feature: Setting/ Permission module
         Given Open "Permission" pages
         Then Get info header row and total rows in view list matching with
             | headerRow                                             | rows                                                                                                                                                  |
-            | {"Status":"Status","Actions":"Actions","Name":"Name"} | [{"Status":"Permission 01","Actions":"Inactive","Name":" EditActivateDelete"},{"Status":"Permission 02","Actions":"Active","Name":" EditDeactivate"}] |
+            | {"Name":"Name","Status":"Status","Actions":"Actions"} | [{"Name":"Permission 01","Status":"Inactive","Actions":" EditActivateDelete"},{"Name":"Permission 02","Status":"Active","Actions":" EditDeactivate"}] |

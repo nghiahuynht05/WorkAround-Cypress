@@ -109,18 +109,17 @@ Given(/^Get info header row and total rows in view list matching with$/, functio
     var rows = JSON.parse(table.rows);
     // Get info of header
     controller.getHeaderRows(ELEMENT.HEADERS_NAME).then(function (actualResult) {
-        console.log("Actual result: ", JSON.stringify(actualResult));
-        console.log("Expected result: header" + JSON.stringify(header) + "rows: " + JSON.stringify(rows));
-        assert.isTrue(controller.matchData(actualResult[0], header), true);
-        assert.isTrue(controller.matchData(actualResult[1], rows), true);
+
+        console.log("Actual result: ", actualResult);
+        for (var index = 0; index < actualResult.length; index++) {
+            console.log(actualResult[index])
+            if (index == 0) {
+                assert.isTrue(controller.matchData(actualResult[index], header), true);
+            }
+            if (index == 1) {
+                assert.isTrue(controller.matchData(actualResult[index], rows), true)
+
+            }
+        }
     });
-
-    // Get info row of table, ignore column Actions
-    // controller.getRows(ELEMENT.VIEWLIST_ITEM, totalRows).then(function (actualResult) {
-    //     console.log(actualResult);
-    //     console.log("Actual result: ", actualResult);
-    //     console.log("Expected result: ", header);
-    //     assert.isTrue(controller.matchData(actualResult, header), true);
-    // });
-
 });

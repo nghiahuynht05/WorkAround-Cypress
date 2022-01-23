@@ -46,7 +46,7 @@ define('BUTTON_SAVE', `//button[@type='button']/span[text()='Save']`);
 define('BUTTON_CANCEL', `//button[@type='button']/span[text()='Cancel']`);
 define('isACTIVE', '//span/span[text()="Active"]');
 
-define('HEADERS_NAME', `//*[@class='table-header stickyTableCellContainer ']| //*[@class='table-header stickyTableCellContainer header-align-toolbar']`);
+define('HEADERS_NAME', `//*[@class='table-header stickyTableCellContainer header-align-toolbar'] | //*[@class='table-header stickyTableCellContainer ']`);
 define('VIEWLIST_ITEM', `//*[@class="cell_content"]`);
 define('VIEWLIST_COLUNM_STATUS', `//*[@class='stickyTableCellContainer ']//span[text()="Active"]`);
 define('VIEWLIST_COLUNM_ACTIONS', `//*[@class='table-actions-dropdown  dropdown btn-group']//button`);
