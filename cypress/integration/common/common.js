@@ -1,4 +1,7 @@
 var _ = require('lodash');
+var chai = require('chai');
+var assert = chai.assert;
+
 import {
     Given,
     When,
@@ -8,13 +11,13 @@ import {
 
 import controller from "../POM/controller";
 import ELEMENT from "../../support/element";
-var token = '';
+
+var token = ''
 
 Given('Login user fleet to CC', function () {
     // Listening response API Login 
     cy.intercept('POST', 'login', (req) => {
         req.continue((res) => {
-            console.log(res)
             token = _.get(res, 'body.res.token');
         })
     });
@@ -35,8 +38,20 @@ Given(/^Open "([^"]*)" pages$/, function (setting) {
     controller.clickBtn(ELEMENT.SETTING);
     switch (setting) {
         case "Permission": {
+            // Listening response API /api/roles/find
+            cy.intercept({
+                method: 'POST',
+                url: '/api/roles/find',
+            }).as('getPermission')
             controller.clickBtn(ELEMENT.PERMISSION);
             cy.url().should('eq', `${Cypress.config('baseUrl')}` + '/settings/Permission');
+            cy.wait('@getPermission').then((interception) => {
+                if (interception.response.statusCode == 200) {
+                    return true
+                }
+            }).should('equal', true)
+            cy.wait(2000)
+
             break;
         }
         case "User": {
@@ -66,14 +81,13 @@ Given(/^Open "([^"]*)" pages$/, function (setting) {
         }
         default: {
             cy.url().should('eq', `${Cypress.config('baseUrl')}` + '/settings/Fleet_info');
+            cy.wait('@getGeneral').then((interception) => {
+                if (interception.response.statusCode == 200) {
+                    return true
+                }
+            }).should('equal', true)
         }
     }
-
-    cy.wait('@getGeneral').then((interception) => {
-        if (interception.response.statusCode == 200) {
-            return true
-        }
-    }).should('equal', true)
 });
 
 Given(/^Get fleet info matching with$/, function (table) {
@@ -87,4 +101,26 @@ Given(/^Get fleet info matching with$/, function (table) {
     controller.getTextHaveValue(ELEMENT.INFO_FLEET_WEBSITE, table.website);
     controller.getTextHaveValue(ELEMENT.INFO_FLEET_CURENCY, table.currency);
     controller.getTextHaveValue(ELEMENT.INFO_FLEET_UNIT, table.unit);
+});
+
+Given(/^Get info header row and total rows in view list matching with$/, function (table) {
+    var table = table.hashes()[0];
+    var header = JSON.parse(table.headerRow);
+    var rows = JSON.parse(table.rows);
+    // Get info of header
+    controller.getHeaderRows(ELEMENT.HEADERS_NAME).then(function (actualResult) {
+        console.log("Actual result: ", JSON.stringify(actualResult));
+        console.log("Expected result: header" + JSON.stringify(header) + "rows: " + JSON.stringify(rows));
+        assert.isTrue(controller.matchData(actualResult[0], header), true);
+        assert.isTrue(controller.matchData(actualResult[1], rows), true);
+    });
+
+    // Get info row of table, ignore column Actions
+    // controller.getRows(ELEMENT.VIEWLIST_ITEM, totalRows).then(function (actualResult) {
+    //     console.log(actualResult);
+    //     console.log("Actual result: ", actualResult);
+    //     console.log("Expected result: ", header);
+    //     assert.isTrue(controller.matchData(actualResult, header), true);
+    // });
+
 });
