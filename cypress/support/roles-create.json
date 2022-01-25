@@ -1,0 +1,31 @@
+{
+    "name": "Test 01",
+    "fleetId": "pepsi",
+    "checkDriverCar": 0,
+    "action": false,
+    "view": false,
+    "vehicles": [],
+    "drivers": [],
+    "modules": [
+        {
+            "name": "Campaign Builder",
+            "key": "CampaignBuilder",
+            "actions": [
+                {
+                    "name": "Actions",
+                    "isActive": true
+                },
+                {
+                    "name": "View",
+                    "isActive": true
+                }
+            ]
+        }
+    ],
+    "isActive": true,
+    "allFleet": false,
+    "allVehicle": true,
+    "handle": true,
+    "systemRole": false,
+    "companyId": null
+}

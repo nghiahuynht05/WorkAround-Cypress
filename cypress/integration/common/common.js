@@ -11,6 +11,9 @@ import {
 
 import controller from "../POM/controller";
 import ELEMENT from "../../support/element";
+import {
+    forEach
+} from "lodash";
 
 var token = ''
 
@@ -115,4 +118,61 @@ Given(/^Get info header row and total rows in view list matching with$/, functio
         assert.isTrue(controller.matchData(actualResult[0], header), true);
         assert.isTrue(controller.matchData(actualResult[1], rows), true)
     });
+});
+
+Given(/^User input data search with data$/, function (table) {
+    var table = table.hashes()[0];
+    controller.searchByKey(ELEMENT.TEXTBOX_SEARCH, table.search);
+});
+
+Given(/^User click "([^"]*)" button$/, function (actions, title) {
+    switch (actions) {
+        case "Add":
+            controller.clickBtn(ELEMENT.BUTTON_ADD);
+            break;
+        case "Export":
+            controller.clickBtn(ELEMENT.BUTTON_EXPORT);
+            break;
+        default: {
+            return false
+        }
+    }
+});
+
+Given(/^User can see "([^"]*)" form$/, function (title) {
+    controller.getTextHaveText(`//*[@class="modal-title"]`, title);
+});
+
+Given(/^User send a request "([^"]*)" API with data$/, async function (api, table) {
+    var table = table.hashes()[0];
+    var permission = JSON.parse(table.permission)
+    var params = {};
+    var permissionKeys = [];
+
+    function readFile(file) {
+        return new Promise(function (resolve, rej) {
+            cy.readFile("./cypress/support/" + file).then((file) => {
+                resolve(file);
+            });
+        })
+    }
+
+    Promise.all([readFile('roles-keys.json'), readFile('roles-create.json')]).then(function (values) {
+        permissionKeys = values[0];
+        params = values[1];
+        console.log(permissionKeys)
+        console.log(permission.name)
+        permissionKeys.forEach(function (value) {
+            if (value.name == permission.name) {
+                _.set(permission, 'key', value.key);
+            }
+        });
+        _.set(params, "modules[0]", permission);
+        _.set(params, "isActive", table.isActive);
+        _.set(params, "name", table.name);
+
+        cy.request('POST', `${Cypress.config('baseUrl')}` + api, params).then((response) => {
+            resolve(response);
+        });
+    })
 });

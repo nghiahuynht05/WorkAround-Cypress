@@ -2,7 +2,8 @@
     "baseUrl": "https://cclite.beta.qup.vn",
     "env": {
         "userName": "pepsi-operator-01",
-        "password": "Qup@12345"
+        "password": "Qup@12345",
+        "fleet": "pepsi"
     },
     "chromeWebSecurity": false
 }

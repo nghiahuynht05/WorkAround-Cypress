@@ -59,7 +59,7 @@ class Controller {
                                     var objectRows = {};
                                     values.forEach(function (item, index) {
                                         Object.assign(objectRows, {
-                                            [keysHeader[index]]: item
+                                            [keysHeader[index]]: item.trim()
                                         })
                                     });
                                     rowsInfo.push(objectRows);
@@ -67,7 +67,7 @@ class Controller {
                             });
                         });
                 });
-            var result = [headerRows, rowsInfo]
+            var result = [headerRows, rowsInfo];
             return result
         }
         return Promise.all([getHeader()]).then((value) => {
@@ -75,14 +75,18 @@ class Controller {
         })
     }
 
+    searchByKey(element, search) {
+        cy.xpath(element).type(search);
+        cy.xpath(element).type("{enter}");
+    }
     matchData(data, expect) {
         var self = this;
         if (_.isArray(expect) && _.isArray(data)) {
             return expect.every(function (item) {
                 return data.some(function (datum) {
                     return self.matchData(datum, item);
-                })
-            })
+                });
+            });
         } else {
             return this.matchFn(data, expect);
         }

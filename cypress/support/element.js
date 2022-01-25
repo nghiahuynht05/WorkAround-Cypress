@@ -38,6 +38,7 @@ define('BUTTON_ADD', `//*[@role='toolbar']//button[@type='button']/span[text()='
 define('BUTTON_DELETE', `//*[@role='toolbar']//button[@type='button']/span[text()='Delete']`);
 define('BUTTON_ACTIVATE', `//*[@role='toolbar']//button[@type='button']/span[text()='Activate']`);
 define('BUTTON_DEACTIVATE', `//*[@role='toolbar']//button[@type='button']/span[text()='Deactivate']`);
+define('BUTTON_EXPORT', `//*[@role='toolbar']//button[@type='button']/span[text()='Export to excel']`);
 
 define('PERMISSION_NAME', `//input[@placeholder='Name']`);
 define('PERMISSION_MODULE', `//label/span[text()='`);

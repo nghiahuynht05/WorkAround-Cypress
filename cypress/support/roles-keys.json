@@ -1,0 +1,238 @@
+[
+    {
+        "name": "Campaign Builder",
+        "key": "CampaignBuilder"
+    },
+    {
+        "name": "Pay To Driver",
+        "key": "Payout"
+    },
+    {
+        "name": "Pay To Merchant",
+        "key": "Payout"
+    },
+    {
+        "name": "Payout History For Driver",
+        "key": "Payout"
+    },
+    {
+        "name": "Payout History For Merchant",
+        "key": "Payout"
+    },
+    {
+        "name": "User",
+        "key": "Setting"
+    },
+    {
+        "name": "General",
+        "key": "Setting"
+    },
+    {
+        "name": "Car type",
+        "key": "Setting"
+    },
+    {
+        "name": "Car mgmt",
+        "key": "Setting"
+    },
+    {
+        "name": "Regular",
+        "key": "Setting"
+    },
+    {
+        "name": "Hourly",
+        "key": "Setting"
+    },
+    {
+        "name": "Flat",
+        "key": "Setting"
+    },
+    {
+        "name": "Fleet info",
+        "key": "Setting"
+    },
+    {
+        "name": "Car Make",
+        "key": "Setting"
+    },
+    {
+        "name": "Delivery",
+        "key": "Setting"
+    },
+    {
+        "name": "Permission",
+        "key": "Setting"
+    },
+    {
+        "name": "Shift template",
+        "key": "Setting"
+    },
+    {
+        "name": "Company",
+        "key": "Setting"
+    },
+    {
+        "name": "Quest",
+        "key": "Setting"
+    },
+    {
+        "name": "City",
+        "key": "Setting"
+    },
+    {
+        "name": "Shift settings",
+        "key": "Setting"
+    },
+    {
+        "name": "Operation",
+        "key": "Setting"
+    },
+    {
+        "name": "Campaign",
+        "key": "Setting"
+    },
+    {
+        "name": "Promotion code",
+        "key": "Setting"
+    },
+    {
+        "name": "Partner type",
+        "key": "Setting"
+    },
+    {
+        "name": "3rd party location",
+        "key": "Setting"
+    },
+    {
+        "name": "Flight integration",
+        "key": "Setting"
+    },
+    {
+        "name": "App banner",
+        "key": "Setting"
+    },
+    {
+        "name": "Referral code",
+        "key": "Setting"
+    },
+    {
+        "name": "Dynamic Surcharge",
+        "key": "Setting"
+    },
+    {
+        "name": "Payment info",
+        "key": "Setting"
+    },
+    {
+        "name": "New booking",
+        "key": "Booking"
+    },
+    {
+        "name": "Customer",
+        "key": "Customer"
+    },
+    {
+        "name": "Map",
+        "key": "Map"
+    },
+    {
+        "name": "Cue",
+        "key": "Cue"
+    },
+    {
+        "name": "Report",
+        "key": "Report"
+    },
+    {
+        "name": "Driver",
+        "key": "Driver"
+    },
+    {
+        "name": "Dispatch",
+        "key": "Setting"
+    },
+    {
+        "name": "Voice & SMS",
+        "key": "Setting"
+    },
+    {
+        "name": "Voucher code",
+        "key": "Setting"
+    },
+    {
+        "name": "mDispatcher",
+        "key": "mDispatcher"
+    },
+    {
+        "name": "Queuing area",
+        "key": "QueuingArea"
+    },
+    {
+        "name": "Corporate",
+        "key": "Corporate"
+    },
+    {
+        "name": "Zone",
+        "key": "Setting"
+    },
+    {
+        "name": "Driver to pax",
+        "key": "Setting"
+    },
+    {
+        "name": "Calendar",
+        "key": "Reservation"
+    },
+    {
+        "name": "Dashboard",
+        "key": "Dashboard"
+    },
+    {
+        "name": "App banner pegasus",
+        "key": "Setting"
+    },
+    {
+        "name": "Dynamic Fare",
+        "key": "Setting"
+    },
+    {
+        "name": "Smart Data",
+        "key": "SmartData"
+    },
+    {
+        "name": "Intercity Zone",
+        "key": "Setting"
+    },
+    {
+        "name": "Intercity Rate",
+        "key": "Setting"
+    },
+    {
+        "name": "Trip",
+        "key": "Trip"
+    },
+    {
+        "name": "Pax refers Pax",
+        "key": "Setting"
+    },
+    {
+        "name": "Driver Note",
+        "key": "Setting"
+    },
+    {
+        "name": "Car Color",
+        "key": "Setting"
+    },
+    {
+        "name": "Merchant",
+        "key": "Merchant"
+    },
+    {
+        "name": "Point config",
+        "key": "Setting"
+    },
+    {
+        "name": "Street-sharing rate",
+        "key": "Setting"
+    }
+]
