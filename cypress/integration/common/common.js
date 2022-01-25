@@ -11,9 +11,6 @@ import {
 
 import controller from "../POM/controller";
 import ELEMENT from "../../support/element";
-import {
-    forEach
-} from "lodash";
 
 var token = ''
 
@@ -143,6 +140,24 @@ Given(/^User can see "([^"]*)" form$/, function (title) {
     controller.getTextHaveText(`//*[@class="modal-title"]`, title);
 });
 
+Given(/^User select full permission with data$/, function (table) {
+    var table = table.hashes()[0];
+    var name = table.name;
+    cy.intercept({
+        method: 'POST',
+        url: '/api/roles/create',
+    }).as('rolesResponse')
+
+    controller.input(ELEMENT.PERMISSION_NAME, name)
+    controller.clickBtn(`//label[text()='Full permissions']`);
+    controller.clickBtn(ELEMENT.BUTTON_SAVE);
+    cy.wait('@rolesResponse').then((interception) => {
+        if (interception.response.statusCode == 200) {
+            return true
+        }
+    }).should('equal', true);
+    cy.wait(2000);
+})
 Given(/^User send a request "([^"]*)" API with data$/, async function (api, table) {
     var table = table.hashes()[0];
     var permission = JSON.parse(table.permission)
@@ -156,12 +171,9 @@ Given(/^User send a request "([^"]*)" API with data$/, async function (api, tabl
             });
         })
     }
-
     Promise.all([readFile('roles-keys.json'), readFile('roles-create.json')]).then(function (values) {
         permissionKeys = values[0];
         params = values[1];
-        console.log(permissionKeys)
-        console.log(permission.name)
         permissionKeys.forEach(function (value) {
             if (value.name == permission.name) {
                 _.set(permission, 'key', value.key);
@@ -171,8 +183,22 @@ Given(/^User send a request "([^"]*)" API with data$/, async function (api, tabl
         _.set(params, "isActive", table.isActive);
         _.set(params, "name", table.name);
 
-        cy.request('POST', `${Cypress.config('baseUrl')}` + api, params).then((response) => {
-            resolve(response);
-        });
-    })
+        cy.request({
+            method: 'POST',
+            url: `${Cypress.config('baseUrlAPI')}` + api,
+            headers: {
+                authorization: token
+            },
+            body: params
+        }).then((response) => {
+            if (response.body.error) {
+                return false
+            } else {
+                return true
+            }
+        }).as('creatRoles');
+        cy.get('@creatRoles').should((value) => {
+            expect(value).to.eql(true);
+        })
+    });
 });
