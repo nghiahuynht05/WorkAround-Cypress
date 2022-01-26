@@ -6,5 +6,26 @@
         "password": "Qup@12345",
         "fleet": "pepsi"
     },
-    "chromeWebSecurity": false
+    "chromeWebSecurity": false,
+    "browsers": [
+        {
+            "name": "chrome",
+            "channel": "stable",
+            "family": "chromium",
+            "displayName": "Canary",
+            "version": "80.0.3966.0",
+            "path": "C:/Program Files/Google/Chrome/Application",
+            "majorVersion": 80
+        },
+        {
+            "name": "electron",
+            "channel": "stable",
+            "family": "chromium",
+            "displayName": "Electron",
+            "version": "94.0.4606.81",
+            "path": "",
+            "majorVersion": 94,
+            "info": "Electron is the default browser that comes with Cypress. This is the default browser that runs in headless mode. Selecting this browser is useful when debugging. The version number indicates theunderlying Chromium version that Electron uses."
+        }
+    ]
 }

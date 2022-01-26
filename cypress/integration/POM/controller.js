@@ -79,6 +79,17 @@ class Controller {
         cy.xpath(element).type(search);
         cy.xpath(element).type("{enter}");
     }
+
+    getNotificationMsg(element) {
+        var msg = [];
+        cy.xpath(element).within((jQuery) => {
+            for (var i = 0; i < jQuery.length; i++) {
+                msg.push(Cypress.$(jQuery[i]).text())
+            }
+        })
+        return msg
+    }
+
     matchData(data, expect) {
         var self = this;
         if (_.isArray(expect) && _.isArray(data)) {

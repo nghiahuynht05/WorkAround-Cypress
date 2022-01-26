@@ -12,7 +12,8 @@ import {
 import controller from "../POM/controller";
 import ELEMENT from "../../support/element";
 
-var token = ''
+var token = "";
+var error = "";
 
 Given('Login user fleet to CC', function () {
     // Listening response API Login 
@@ -147,14 +148,15 @@ Given(/^User select full permission with data$/, function (table) {
         method: 'POST',
         url: '/api/roles/create',
     }).as('rolesResponse')
-
     controller.input(ELEMENT.PERMISSION_NAME, name)
     controller.clickBtn(`//label[text()='Full permissions']`);
     controller.clickBtn(ELEMENT.BUTTON_SAVE);
     cy.wait('@rolesResponse').then((interception) => {
-        if (interception.response.statusCode == 200) {
-            return true
+        if (_.get(interception, "response.body.error")) {
+            var errorMsg = controller.getNotificationMsg(ELEMENT.NOTIFICATION);
+            error = errorMsg[0]
         }
+        return true
     }).should('equal', true);
     cy.wait(2000);
 })
