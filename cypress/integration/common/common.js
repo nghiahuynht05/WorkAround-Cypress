@@ -13,7 +13,7 @@ import controller from "../POM/controller";
 import ELEMENT from "../../support/element";
 
 var token = "";
-var error = "";
+var resultNotificationMsg = "";
 
 Given('Login user fleet to CC', function () {
     // Listening response API Login 
@@ -152,14 +152,21 @@ Given(/^User select full permission with data$/, function (table) {
     controller.clickBtn(`//label[text()='Full permissions']`);
     controller.clickBtn(ELEMENT.BUTTON_SAVE);
     cy.wait('@rolesResponse').then((interception) => {
-        if (_.get(interception, "response.body.error")) {
-            var errorMsg = controller.getNotificationMsg(ELEMENT.NOTIFICATION);
-            error = errorMsg[0]
+        if (_.get(interception, "response.body")) {
+            var notificationMsg = controller.getNotificationMsg(ELEMENT.NOTIFICATION);
+            resultNotificationMsg = notificationMsg[0]
+            return true
         }
-        return true
     }).should('equal', true);
     cy.wait(2000);
-})
+});
+
+Given(/^The screen show notification message with data$/, function(table){
+    var table = table.hashes()[0];
+
+    assert.isTrue(resultNotificationMsg, table.message);
+});
+
 Given(/^User send a request "([^"]*)" API with data$/, async function (api, table) {
     var table = table.hashes()[0];
     var permission = JSON.parse(table.permission)

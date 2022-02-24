@@ -23,12 +23,7 @@
 const cucumber = require('cypress-cucumber-preprocessor').default
 
 module.exports = (on, config) => {
-  console.log(config.browsers)
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
 
   on('file:preprocessor', cucumber());
-  return {
-    browsers: config.browsers.filter((b) => b.family === 'chromium'),
-  }
+  return {}
 }

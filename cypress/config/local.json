@@ -3,5 +3,5 @@
     "env": {
         "userName": "cypress",
         "password": "Qup@12345"
-    }
+        }
 }
