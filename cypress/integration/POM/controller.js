@@ -35,44 +35,47 @@ class Controller {
     getHeaderRows(element) {
         var headerRows = {};
         var rowsInfo = [];
+        var result = [];
 
         function getHeader() {
-            cy.xpath(element)
-                .within((jQuery) => {
+            return new Promise(resolve => {
+                cy.xpath(element)
+                    .within((jQuery) => {
 
-                    for (var i = 0; i < jQuery.length; i++) {
-                        Object.assign(headerRows, {
-                            [Cypress.$(jQuery[i]).text()]: Cypress.$(jQuery[i]).text()
-                        });
-                    }
-                    cy.xpath(`//*[@class="cell_content"]`)
-                        .within((content) => {
-                            var arrjQuery = []
-
-                            for (var i = 0; i < content.length; i++) {
-                                arrjQuery.push(Cypress.$(content[i]).text())
-                            };
-                            var rowsArry = arrjQuery.chunk_inefficient(jQuery.length);
-                            var keysHeader = _.keys(headerRows);
-                            rowsArry.forEach(function (values, index) {
-                                if (index != 0) {
-                                    var objectRows = {};
-                                    values.forEach(function (item, index) {
-                                        Object.assign(objectRows, {
-                                            [keysHeader[index]]: item.trim()
-                                        })
-                                    });
-                                    rowsInfo.push(objectRows);
-                                }
+                        for (var i = 0; i < jQuery.length; i++) {
+                            Object.assign(headerRows, {
+                                [Cypress.$(jQuery[i]).text()]: Cypress.$(jQuery[i]).text()
                             });
-                        });
-                });
-            var result = [headerRows, rowsInfo];
-            return result
+                        }
+                        cy.xpath(`//*[@class="cell_content"]`)
+                            .within((content) => {
+                                var arrjQuery = []
+
+                                for (var i = 0; i < content.length; i++) {
+                                    arrjQuery.push(Cypress.$(content[i]).text())
+                                };
+                                var rowsArry = arrjQuery.chunk_inefficient(jQuery.length);
+                                var keysHeader = _.keys(headerRows);
+                                rowsArry.forEach(function (values, index) {
+                                    if (index != 0) {
+                                        var objectRows = {};
+                                        values.forEach(function (item, index) {
+                                            Object.assign(objectRows, {
+                                                [keysHeader[index]]: item.trim()
+                                            });
+                                        });
+                                        rowsInfo.push(objectRows);
+
+                                    }
+                                });
+                                result.push(headerRows);
+                                result.push(rowsInfo);
+                                return resolve(result)
+                            });
+                    });
+            });
         }
-        return Promise.all([getHeader()]).then((value) => {
-            return value[0]
-        })
+        return getHeader();
     }
 
     searchByKey(element, search) {
@@ -81,12 +84,10 @@ class Controller {
     }
 
     getNotificationMsg(element) {
-        var msg = [];
-        cy.xpath(element).within((jQuery) => {
-            for (var i = 0; i < jQuery.length; i++) {
-                msg.push(Cypress.$(jQuery[i]).text())
-            }
-        })
+        var msg;
+        msg = cy.xpath(element).then((info) => {
+            return info.text();
+        });
         return msg
     }
 
@@ -117,7 +118,7 @@ class Controller {
         } else {
             if (_.matches(src)(obj)) return true;
             return Object.keys(src).every(function (key) {
-                return self.matchFn(obj[key], src[key]);
+                return self.matchFn(_.get(obj, key), src[key]);
             })
         }
         return false;

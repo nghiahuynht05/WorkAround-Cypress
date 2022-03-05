@@ -109,12 +109,12 @@ Given(/^Get info header row and total rows in view list matching with$/, functio
     var header = JSON.parse(table.headerRow);
     var rows = JSON.parse(table.rows);
     // Get info of header
-    controller.getHeaderRows(ELEMENT.HEADERS_NAME).then(function (actualResult) {
+    controller.getHeaderRows(ELEMENT.HEADERS_NAME).then((actualResult) => {
         console.log("Actual result: ", actualResult);
         console.log("Expected result: header ", header);
         console.log("Expected result: rows ", rows);
         assert.isTrue(controller.matchData(actualResult[0], header), true);
-        assert.isTrue(controller.matchData(actualResult[1], rows), true)
+        assert.isTrue(controller.matchData(actualResult[1], rows), true);
     });
 });
 
@@ -147,24 +147,24 @@ Given(/^User select full permission with data$/, function (table) {
     cy.intercept({
         method: 'POST',
         url: '/api/roles/create',
-    }).as('rolesResponse')
+    }).as('rolesResponse');
     controller.input(ELEMENT.PERMISSION_NAME, name)
     controller.clickBtn(`//label[text()='Full permissions']`);
     controller.clickBtn(ELEMENT.BUTTON_SAVE);
     cy.wait('@rolesResponse').then((interception) => {
         if (_.get(interception, "response.body")) {
-            var notificationMsg = controller.getNotificationMsg(ELEMENT.NOTIFICATION);
-            resultNotificationMsg = notificationMsg[0]
-            return true
+            controller.getNotificationMsg(ELEMENT.NOTIFICATION).then((msg) => {
+                console.log(msg)
+                resultNotificationMsg = msg;
+            });
         }
-    }).should('equal', true);
+    })
     cy.wait(2000);
 });
 
-Given(/^The screen show notification message with data$/, function(table){
+Given(/^The screen show notification message with data$/, function (table) {
     var table = table.hashes()[0];
-
-    assert.isTrue(resultNotificationMsg, table.message);
+    assert.isTrue(resultNotificationMsg == table.message, true);
 });
 
 Given(/^User send a request "([^"]*)" API with data$/, async function (api, table) {
