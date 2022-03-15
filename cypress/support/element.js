@@ -54,11 +54,11 @@ define('VIEWLIST_COLUNM_STATUS', `//*[@class='stickyTableCellContainer ']//span[
 define('VIEWLIST_COLUNM_ACTIONS', `//*[@class='table-actions-dropdown  dropdown btn-group']//button`);
 define('GRID_ITEM', `//*[@class='cellTable_cell']`);
 define('GRID_DETAIL', `//*[@class='cellTable_cell']//*[@class='clickable']`);
-define('MENU_ACTIVATE', `//*[@class='content']//*[@role='menu']//*/span[text()='Activate']/..`);
-define('MENU_DELETE', `//*[@class='content']//*[@role='menu']//*/span[text()='Delete']/..`);
-define('MENU_EDIT', `//*[@class='content']//*[@role='menu']//*/span[text()='Edit']/..`);
+define('MENU_DEACTIVATE', `//*[@class='table-actions-dropdown  dropdown open btn-group']//*[@role='menuitem']//span[text()='Deactivate']`)
+define('MENU_DELETE', `//*[@class='table-actions-dropdown  dropdown open btn-group']//*[@role='menuitem']//span[text()='Delete']`)
+define('MENU_ACTIVATE', `//*[@class='table-actions-dropdown  dropdown open btn-group']//*[@role='menuitem']//span[text()='Activate']`)
+define('MENU_EDIT', `//*[@class='table-actions-dropdown  dropdown open btn-group']//*[@role='menuitem']//span[text()='Edit']`)
 define('MENU_ASSIGN_RATE', `//*[@class='content']//*[@role='menu']//*/span[text()='Assign Rate']/..`);
-define('MENU_DEACTIVATE', `//*[@class='content']//*[@role='menu']//*/span[text()='Deactivate']/..`)
 define('DETAIL_FORM', `//*[@class='modal-title']`)
 
 //-----------User---------------//

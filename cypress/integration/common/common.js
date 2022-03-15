@@ -167,6 +167,37 @@ Given(/^The screen show notification message with data$/, function (table) {
     assert.isTrue(resultNotificationMsg == table.message, true);
 });
 
+Given(/^Select "([^"]*)" of "([^"]*)" row on actions column$/, function (actions, row) {
+    var row = parseInt(row);
+    cy.xpath(ELEMENT.VIEWLIST_COLUNM_ACTIONS).then(function (info) {
+        console.log(info);
+        info[row - 1].click();
+        if (actions == "Edit") {
+            cy.xpath(ELEMENT.MENU_EDIT).then(function (editElement) {
+                editElement.click();
+            })
+        }
+        if (actions == "Activate") {
+            cy.xpath(ELEMENT.MENU_ACTIVATE).then(function (activateElement) {
+                activateElement.click();
+                cy.wait(2000);
+            })
+        }
+        if (actions == "Delete") {
+            cy.xpath(ELEMENT.MENU_DELETE).then(function (deleteElement) {
+                deleteElement.click();
+                cy.wait(2000);
+            })
+        }
+        if (actions == "Deactivate") {
+            cy.xpath(ELEMENT.MENU_DEACTIVATE).then(function (deactivateElement) {
+                deactivateElement.click();
+                cy.wait(2000);
+            })
+        }
+    })
+})
+
 Given(/^User send a request "([^"]*)" API with data$/, async function (api, table) {
     var table = table.hashes()[0];
     var permission = JSON.parse(table.permission)
