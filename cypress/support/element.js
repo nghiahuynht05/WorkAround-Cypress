@@ -44,7 +44,9 @@ define('PERMISSION_NAME', `//input[@placeholder='Name']`);
 define('PERMISSION_MODULE', `//label/span[text()='`);
 
 define('BUTTON_SAVE', `//button[@type='button']/span[text()='Save']`);
+define('BUTTON_YES', `//button[@type='button']/span[text()='Yes']`);
 define('BUTTON_CANCEL', `//button[@type='button']/span[text()='Cancel']`);
+define('BUTTON_NO', `//button[@type='button']/span[text()='No']`);
 define('isACTIVE', '//span/span[text()="Active"]');
 
 define('NOTIFICATION',`//*[@class="noti-title"]`)
@@ -59,13 +61,17 @@ define('MENU_DELETE', `//*[@class='table-actions-dropdown  dropdown open btn-gro
 define('MENU_ACTIVATE', `//*[@class='table-actions-dropdown  dropdown open btn-group']//*[@role='menuitem']//span[text()='Activate']`)
 define('MENU_EDIT', `//*[@class='table-actions-dropdown  dropdown open btn-group']//*[@role='menuitem']//span[text()='Edit']`)
 define('MENU_ASSIGN_RATE', `//*[@class='content']//*[@role='menu']//*/span[text()='Assign Rate']/..`);
-define('DETAIL_FORM', `//*[@class='modal-title']`)
+define('DETAIL_FORM', `//*[@class='modal-title']`);
 
 //-----------User---------------//
-define('TABLE_ROW', `//*[@class='cellTable_row']`);
-define('SELECT_FIELD', `//*[@class='modal-content']//*[select]`);
-define('COLUNM_STATUS_ACTIVE', `(//*[@class='cellTable_cell'])[*]//span[text()='Active']`);
-define('TEXTBOX_SEARCH', `//*[@role='toolbar']//child::input`);
+define('PERMISSION_USERNAME', `//input[@placeholder='Username']`);
+define('PERMISSION_FIRSTNAME', `//input[@placeholder='First name']`);
+define('PERMISSION_EMAIL', `//input[@placeholder='Email address']`);
+define('PERMISSION_LASTNAME', `//input[@placeholder='Last name']`);
+define('PERMISSION_USERID', `//input[@placeholder='User #']`);
+define('PERMISSION_ADDRESS', `//input[@placeholder='Address']`);
+define('PERMISSION_PHONENUMBER', `//input[@type='tel']`);
+define('PERMISSION_ROLES', `//select[@class="form-custom form-control"]`);
 
 //-----------Dynamic---------------//
 define('HEADER_SURCHARGE_TABLE', `//*[@class='surcharge-list-container']//table//thead//span`);

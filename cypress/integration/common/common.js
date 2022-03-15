@@ -56,8 +56,20 @@ Given(/^Open "([^"]*)" pages$/, function (setting) {
             break;
         }
         case "User": {
+            // Listening response API /api/roles/find
+            cy.intercept({
+                method: 'POST',
+                url: '/api/user/find',
+            }).as('getUser')
+
             controller.clickBtn(ELEMENT.USER);
             cy.url().should('eq', `${Cypress.config('baseUrl')}` + '/settings/User');
+            cy.wait('@getUser').then((interception) => {
+                if (interception.response.statusCode == 200) {
+                    return true
+                }
+            }).should('equal', true)
+            cy.wait(2000);
             break;
         }
         case "Dynamic surcharge": {
@@ -141,7 +153,20 @@ Given(/^User can see "([^"]*)" form$/, function (title) {
     controller.getTextHaveText(`//*[@class="modal-title"]`, title);
 });
 
-Given(/^User select full permission with data$/, function (table) {
+Given(/^Operator can see "([^"]*)" confirm form with data$/, function (title, table) {
+    var table = table.hashes()[0];
+    controller.getTextHaveText(`//*[@class="modal-title"]`, title);
+    controller.getTextHaveText(`//*[@class="modal-body"]`, table.message);
+    if (table.confirm == "Yes") {
+        controller.clickBtn(ELEMENT.BUTTON_YES);
+        cy.wait(2000);
+    }
+    if (table.confirm == "No") {
+        controller.clickBtn(ELEMENT.BUTTON_NO);
+    }
+});
+
+Given(/^User input data to permission form with data$/, function (table) {
     var table = table.hashes()[0];
     var name = table.name;
     cy.intercept({
@@ -155,6 +180,32 @@ Given(/^User select full permission with data$/, function (table) {
         if (_.get(interception, "response.body")) {
             controller.getNotificationMsg(ELEMENT.NOTIFICATION).then((msg) => {
                 console.log(msg)
+                resultNotificationMsg = msg;
+            });
+        }
+    })
+    cy.wait(2000);
+});
+
+Given(/^User input data to user form with data$/, function (table) {
+    var table = table.hashes()[0];
+    var name = table.name;
+    cy.intercept({
+        method: 'POST',
+        url: '/api/user/create',
+    }).as('userResponse');
+    controller.input(ELEMENT.PERMISSION_USERNAME, table.username);
+    controller.input(ELEMENT.PERMISSION_FIRSTNAME, table.firstname);
+    controller.input(ELEMENT.PERMISSION_EMAIL, table.email);
+    controller.input(ELEMENT.PERMISSION_LASTNAME, table.lastname);
+    controller.input(ELEMENT.PERMISSION_USERID, table.userId);
+    controller.input(ELEMENT.PERMISSION_ADDRESS, table.address);
+    controller.input(ELEMENT.PERMISSION_PHONENUMBER, table.phonenumber);
+    cy.xpath(ELEMENT.PERMISSION_ROLES).select(table.permission);
+    controller.clickBtn(ELEMENT.BUTTON_SAVE);
+    cy.wait('@userResponse').then((interception) => {
+        if (_.get(interception, "response.body")) {
+            controller.getNotificationMsg(ELEMENT.NOTIFICATION).then((msg) => {
                 resultNotificationMsg = msg;
             });
         }

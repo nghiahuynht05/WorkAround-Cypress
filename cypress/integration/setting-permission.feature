@@ -26,7 +26,7 @@ Feature: Setting/ Permission module
     Scenario: 04. Verify add permission: operator add new permission
         Given Open "Permission" pages
         When User click "Add" button
-        And User select full permission with data
+        And User input data to permission form with data
             | name    |
             | Test 01 |
         And The screen show notification message with data
@@ -39,7 +39,7 @@ Feature: Setting/ Permission module
     Scenario: 05. Verify add permission: operator add permission was exist
         Given Open "Permission" pages
         When User click "Add" button
-        And User select full permission with data
+        And User input data to permission form with data
             | name    |
             | Test 01 |
         And The screen show notification message with data

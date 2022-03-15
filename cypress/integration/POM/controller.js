@@ -13,7 +13,9 @@ Object.defineProperty(Array.prototype, 'chunk_inefficient', {
 class Controller {
     constructor() {}
     input(element, value) {
-        return cy.xpath(element).type(value);
+        if (!_.isEmpty(value)) {
+            return cy.xpath(element).type(value);
+        }
     }
 
     clickBtn(element) {
@@ -44,7 +46,7 @@ class Controller {
 
                         for (var i = 0; i < jQuery.length; i++) {
                             Object.assign(headerRows, {
-                                [Cypress.$(jQuery[i]).text()]: Cypress.$(jQuery[i]).text()
+                                [Cypress.$(jQuery[i]).text().replaceAll(/\s/g, '')]: Cypress.$(jQuery[i]).text()
                             });
                         }
                         cy.xpath(`//*[@class="cell_content"]`)
